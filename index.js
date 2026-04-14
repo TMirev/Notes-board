@@ -198,3 +198,41 @@ document.addEventListener("keydown", event => {
     }
 
 })
+
+fetch("/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text: "My first SQL note" })
+});
+
+async function loadNotes() {
+    const res = await fetch("/api/notes");
+    const notes = await res.json();
+
+    const container = document.getElementById("notes");
+    container.innerHTML = "";
+
+    notes.forEach(n => {
+        const div = document.createElement("div");
+        div.className = "note";
+        div.textContent = n.text;
+        container.appendChild(div);
+    });
+}
+
+document.getElementById("addBtn").onclick = async () => {
+    const text = document.getElementById("noteInput").value;
+    if (!text.trim()) return;
+
+    await fetch("/api/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text })
+    });
+
+    document.getElementById("noteInput").value = "";
+    loadNotes();
+};
+
+loadNotes();
+

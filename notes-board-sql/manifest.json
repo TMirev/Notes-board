@@ -1,0 +1,16 @@
+{
+    "name": "Notes Board",
+    "short_name": "NotesBoard",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#1e1e1e",
+    "theme_color": "#1e1e1e",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "images/notes.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
