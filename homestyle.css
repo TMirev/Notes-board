@@ -1,0 +1,118 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Light blue gradient background */
+    background: linear-gradient(135deg, lightblue);
+    font-family: 'Segoe UI', sans-serif;
+
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+
+/* Center content */
+.landing-container {
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    color: #003366;
+    /* deep blue text for contrast */
+    padding: 30px;
+    border-radius: 12px;
+    background: lightgoldenrodyellow;
+    border-radius: 5%;
+    margin: 40px auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid #f5d142;
+}
+
+/* Title */
+.landing-container h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+/* Subtitle */
+.landing-container p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+/* Button */
+.landing-container button {
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    width: 45%;
+
+    background: #b3d9ff;
+    /* soft light blue */
+    color: #003366;
+    cursor: pointer;
+
+
+}
+
+.landing-container button:hover {
+    background: #cce6ff;
+    transform: scale(1.10);
+}
+
+.home-image {
+    width: 100%;
+    max-width: 250px;
+    /* keeps it from getting too big */
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 480px) {
+    .landing-container h1 {
+        font-size: 26px;
+    }
+
+    .landing-container button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}
+
+.hero h1 {
+    .hero h1 {
+        font-size: 36px;
+        color: #003366;
+    }
+
+    .hero p {
+        font-size: 18px;
+        color: #555;
+        margin-top: 10px;
+    }
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 28px;
+    background: #0055aa;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.15s ease;
+    box-shadow: 0 4px 0 #003f7d;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #003f7d;
+}
+
+.button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #003f7d;
+}

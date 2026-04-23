@@ -5,8 +5,8 @@
     box-sizing: border-box;
 }
 
-body{
-    background-color:lightslategray
+body {
+    background-color: lightslategray;
 }
 
 .container {
@@ -22,35 +22,38 @@ body{
 }
 
 img {
-    width: 50px;
-    height: 50px;
+    width: 25px;
+    height: 25px;
 }
 
 .container h1 {
     display: flex;
     align-items: center;
-    font-size: 60px;
+    font-size: 35px;
     font-weight: 600;
 }
 
 .container h1 img {
 
     width: 50px;
+    height: 50px;
     border-radius: 60%;
     border: 3px solid whitesmoke;
     padding: 3px;
 
 }
 
+
+
 .container button {
     display: flex;
     align-items: center;
     background: linear-gradient();
-    font-size: 16px;
+    font-size: 12px;
     outline: 0;
     border: 0;
     border-radius: 50px;
-    padding: 8px 15px;
+    padding: 6px 15px;
     margin: 30px 0 20px;
     cursor: pointer;
 }
@@ -71,8 +74,8 @@ img {
 
 .input-box img {
     position: absolute;
-    width: 32px;
-    height: 32px;
+    width: 15px;
+    height: 15px;
     bottom: 20px;
     right: 15px;
     cursor: pointer;
@@ -80,8 +83,9 @@ img {
 
 .pin-btn {
     position: absolute;
-    bottom: 20px;
-    right: 55px; /* keep spacing from the delete icon */
+    bottom: 10px;
+    right: 35px;
+    /* keep spacing from the delete icon */
     cursor: pointer;
     user-select: none;
     width: 32px;
@@ -89,7 +93,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 15px;
     line-height: 1;
     transition: transform 120ms ease-in-out, filter 120ms ease-in-out;
     background: transparent;
@@ -97,8 +101,9 @@ img {
 
 .complete-btn {
     position: absolute;
-    bottom: 20px;
-    right: 95px; /* sits left of pin icon */
+    bottom: 10px;
+    right: 65px;
+    /* sits left of pin icon */
     cursor: pointer;
     user-select: none;
     width: 32px;
@@ -106,7 +111,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 19px;
+    font-size: 15px;
     line-height: 1;
     border-radius: 999px;
     transition: transform 120ms ease-in-out, background-color 120ms ease-in-out;
@@ -118,7 +123,7 @@ img {
 }
 
 .input-box.pinned .pin-btn {
-    background: rgba(255, 235, 59, 0.95);
+    background: lightblue;
     border-radius: 999px;
     box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.55);
     transform: scale(1.05);
@@ -132,4 +137,164 @@ img {
 
 .input-box.pinned {
     box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.7);
+}
+
+
+#searchBar {
+    width: 200px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    /* space between button and search bar */
+    margin-bottom: 10px;
+}
+
+#searchBar {
+    padding: 10px 15px;
+    font-size: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.home-image {
+    height: 20px;
+    width: 20px;
+
+}
+
+#tagSelect {
+    width: 127px;
+    margin-top: 10px;
+    padding: 8px 12px;
+    font: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #f7f7f7;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+#tagSelect:hover {
+    border-color: #888;
+}
+
+
+/* Base note style */
+.note {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    background: white;
+    transition: background 0.2s ease;
+}
+
+/* Highlight colours */
+.note-yellow {
+    background: #fff7b3;
+}
+
+.note-blue {
+    background: #cfe8ff;
+}
+
+.note-green {
+    background: #d8f5d1;
+}
+
+.note-red {
+    background: #ffd6d6;
+}
+
+.color-options {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid #999;
+}
+
+.yellow {
+    background: #fff7b3;
+}
+
+.blue {
+    background: #cfe8ff;
+}
+
+.green {
+    background: #d8f5d1;
+}
+
+.red {
+    background: #ffd6d6;
+}
+
+.color-picker {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.color-option {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #ddd;
+    transition: transform 0.2s;
+}
+
+.color-option:hover {
+    transform: scale(1.15);
+}
+
+.color-option.selected {
+    border: 3px solid #000;
+}
+
+.delete-icon {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.underline-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 100px;
+    /* sits left of complete-btn */
+    cursor: pointer;
+    user-select: none;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    line-height: 1;
+    border-radius: 999px;
+    transition: transform 120ms ease-in-out, background-color 120ms ease-in-out;
+}
+
+.underline-word {
+    text-decoration: underline;
+    font-weight: bold;
 }

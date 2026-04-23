@@ -1,8 +1,25 @@
 const notesContainer = document.querySelector(".notes-container");
-
 const createBtn = document.querySelector(".btn");
+const archiveContainer = document.querySelector(".archive-container");
 
+let selectedColor = "#ffffff"; // default note colour
 let nextOrder = 1;
+
+document.querySelectorAll(".color-option").forEach(option => {
+    option.style.backgroundColor = option.dataset.color;
+
+    option.addEventListener("click", () => {
+        // remove previous selection
+        document.querySelectorAll(".color-option")
+            .forEach(o => o.classList.remove("selected"));
+
+        // mark new selection
+        option.classList.add("selected");
+
+        // store selected colour
+        selectedColor = option.dataset.color;
+    });
+});
 
 function sortNotes() {
     const notes = Array.from(notesContainer.querySelectorAll(".input-box"));
@@ -18,6 +35,7 @@ function sortNotes() {
     });
     notes.forEach(note => notesContainer.appendChild(note));
 }
+
 
 function ensureNoteOrders() {
     const notes = Array.from(notesContainer.querySelectorAll(".input-box"));
@@ -50,6 +68,44 @@ function createCompleteButton() {
     completeBtn.setAttribute("aria-label", "Mark note as completed");
     completeBtn.innerHTML = "✔️";
     return completeBtn;
+}
+
+function createUnderlineButton() {
+    const underlineBtn = document.createElement("span");
+    underlineBtn.className = "underline-btn";
+    underlineBtn.setAttribute("contenteditable", "false");
+    underlineBtn.setAttribute("aria-label", "Underline selected text");
+    underlineBtn.innerHTML = "🖊️";
+    return underlineBtn;
+}
+
+function toggleUnderlineSelectedWord() {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    const selectedText = selection.toString().trim();
+    if (selectedText.length === 0) return;
+
+    // Check if selection is already inside an underline span
+    const parent = selection.anchorNode.parentElement;
+    if (parent && parent.classList.contains("underline-word")) {
+        // ⭐ Remove underline
+        const textNode = document.createTextNode(parent.textContent);
+        parent.replaceWith(textNode);
+        updateStorage();
+        return;
+    }
+
+    // ⭐ Add underline
+    const span = document.createElement("span");
+    span.classList.add("underline-word");
+    span.textContent = selectedText;
+
+    range.deleteContents();
+    range.insertNode(span);
+
+    updateStorage();
 }
 
 function ensurePinButtons() {
@@ -110,6 +166,25 @@ function placeCaretAtStart(note) {
     selection.addRange(range);
 }
 
+function searchNotes() {
+    const query = document.getElementById("searchBar").value.toLowerCase();
+    const notes = document.querySelectorAll(".input-box");
+
+    notes.forEach(note => {
+        // Clone note to remove icons before searching
+        const clone = note.cloneNode(true);
+        clone.querySelectorAll(".pin-btn, .complete-btn, img").forEach(el => el.remove());
+
+        const text = clone.innerText.toLowerCase().trim();
+
+        if (query === "" || text.includes(query)) {
+            note.style.display = "block";
+        } else {
+            note.style.display = "none";
+        }
+    });
+}
+
 function showNotes() {
     const storedNotes = localStorage.getItem("notes");
 
@@ -133,24 +208,30 @@ function updateStorage() {
 
 createBtn.addEventListener("click", () => {
     let inputBox = document.createElement("p");
-    let img = document.createElement("img");
     inputBox.className = "input-box";
+    inputBox.style.backgroundColor = selectedColor;
     inputBox.setAttribute("contenteditable", "true");
     inputBox.dataset.order = String(nextOrder++);
+
+    // ⭐ FIX: Add blank text node so caret starts at top
+    inputBox.appendChild(document.createTextNode(""));
+
+    // Create delete icon
+    let img = document.createElement("img");
     img.src = "images/delete.png";
+    img.classList.add("delete-icon");
     img.setAttribute("contenteditable", "false");
     img.setAttribute("aria-hidden", "true");
-    inputBox.appendChild(img);
 
+    // Insert icons AFTER the blank text node
+    inputBox.appendChild(img);
     inputBox.insertBefore(createCompleteButton(), img);
     inputBox.insertBefore(createPinButton(), img);
+    inputBox.insertBefore(createUnderlineButton(), img);
 
     notesContainer.appendChild(inputBox);
-
     updateStorage();
-
-
-})
+});
 
 notesContainer.addEventListener("click", function (e) {
     const completeBtn = e.target.closest ? e.target.closest(".complete-btn") : null;
@@ -174,12 +255,18 @@ notesContainer.addEventListener("click", function (e) {
         return;
     }
 
+    const underlineBtn = e.target.closest ? e.target.closest(".underline-btn") : null;
+    if (underlineBtn) {
+        toggleUnderlineSelectedWord();
+        return;
+    }
+
     // If the note is empty and the user clicks the note surface (not icons),
     // move caret to the start so typing starts at the top.
-    const clickedNote = e.target.closest ? e.target.closest(".input-box") : null;
-    if (clickedNote && e.target.tagName === "P" && isNoteEmpty(clickedNote)) {
+    const clickedNote = e.target.closest(".input-box");
+
+    if (clickedNote && isNoteEmpty(clickedNote)) {
         placeCaretAtStart(clickedNote);
-        return;
     }
 
     if (e.target.tagName === "IMG") {
@@ -197,7 +284,14 @@ document.addEventListener("keydown", event => {
         event.preventDefault();
     }
 
-})
+});
+
+
+
+document.getElementById("searchBar").addEventListener("input", searchNotes);
+
+
+
 
 fetch("/add", {
     method: "POST",

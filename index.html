@@ -6,19 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notes Board</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
+
 </head>
 
 <body>
 
     <div class="container">
-        <h1><img src="images/notes.png">Notes</h1>
-        <button class="btn"><img src="images/edit.png">Create Notes</button>
+        <h1><img src="images/notes.png">ProNotes</h1>
+
+
+        <div class="top-bar">
+            <button class="btn"><img src="images/edit.png">Create Notes</button>
+            <input type="text" id="searchBar" placeholder="Search notes....">
+            <select id="tagSelect">
+                <option value="">Personal</option>
+                <option value="">Work</option>
+                <option value="">Home</option>
+                <option value="">Ideas</option>
+                <option value="">School</option>
+            </select>
+
+        </div>
+
+        <div class="color-picker">
+            <div class="color-option" data-color="#FAFAFA"></div>
+            <div class="color-option" data-color="#ffeb3b"></div>
+            <div class="color-option" data-color="#ff8a80"></div>
+
+        </div>
+
         <div class="notes-container">
             <p contenteditable="true" class="input-box">
-                <img src="images/delete.png">
+                <img src="images/delete.png" class="delete-icon">
             </p>
 
+            <div class="note note-yellow">Important reminder</div>
+
+            <div class="color-options">
+                <span class="dot yellow" onclick="setNoteColor(note, 'note-yellow')"></span>
+                <span class="dot blue" onclick="setNoteColor(note, 'note-blue')"></span>
+                <span class="dot green" onclick="setNoteColor(note, 'note-green')"></span>
+                <span class="dot red" onclick="setNoteColor(note, 'note-red')"></span>
+            </div>
         </div>
 
         <script src="index.js"></script>
